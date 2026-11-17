@@ -37,12 +37,36 @@ Neo4j 5 · MCP Python SDK (FastMCP, streamable HTTP) · langchain-mcp-adapters �
 
 ## Run it
 
-Requires Docker, [uv](https://docs.astral.sh/uv/), Node 18+ (only for the UI), and an Anthropic API key.
+Requires Docker, Python 3.12+, Node 18+ (only for the UI), and an Anthropic API key.
 
 ```bash
 cp .env.example .env          # add ANTHROPIC_API_KEY
+```
+
+### Install dependencies (pick one)
+
+**Option A: uv (recommended).** `uv sync` creates `.venv/` and installs the exact versions pinned in `uv.lock`:
+```bash
 uv sync
 ```
+Prefix commands with `uv run` (as below), or activate `.venv` first.
+
+**Option B: pip + venv.** `requirements.txt` and `requirements-dev.txt` are generated from `uv.lock` with the same pins:
+```bash
+python -m venv .venv
+```
+```bash
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+```
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+```
+With pip, drop the `uv run` prefix from the commands below, e.g. `python -m ingest.build_kg` or `langgraph dev`.
+To regenerate the files after changing dependencies:
+`uv export --no-hashes --no-dev --no-emit-project -o requirements.txt` and
+`uv export --no-hashes --only-dev --no-emit-project -o requirements-dev.txt`.
+
+### Start everything
 
 ```bash
 docker compose up -d neo4j qdrant
