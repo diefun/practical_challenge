@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "contractor-ops": {
+      "type": "http",
+      "url": "http://localhost:8000/mcp"
+    },
+    "contractor-ops-stdio": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_server.server", "--stdio"]
+    }
+  }
+}

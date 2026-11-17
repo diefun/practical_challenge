@@ -1,0 +1,13 @@
+id,name,location,hourly_rate,available_from,status,email
+C001,Ana Torres,Austin,95,2026-11-20,available,ana.torres@example.com
+C002,Ben Okafor,Denver,110,2026-12-15,assigned,ben.okafor@example.com
+C003,Chloe Martin,Austin,85,2026-11-17,available,chloe.martin@example.com
+C004,Diego Ramirez,Phoenix,120,2027-01-05,assigned,diego.ramirez@example.com
+C005,Elena Petrova,Denver,100,2026-11-24,available,elena.petrova@example.com
+C006,Farid Haddad,Phoenix,90,2026-11-17,available,farid.haddad@example.com
+C007,Grace Kim,Austin,130,2026-12-01,assigned,grace.kim@example.com
+C008,Hiro Tanaka,Remote,105,2026-11-18,available,hiro.tanaka@example.com
+C009,Isabel Costa,Denver,80,2026-11-17,available,isabel.costa@example.com
+C010,Jamal Wright,Phoenix,115,2026-11-30,available,jamal.wright@example.com
+C011,Kara Nilsen,Remote,125,2027-02-01,assigned,kara.nilsen@example.com
+C012,Luis Mendoza,Austin,75,2026-11-17,available,luis.mendoza@example.com

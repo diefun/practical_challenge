@@ -1,0 +1,31 @@
+# Central configuration. Values can be overridden by the environment variable shown.
+llm:
+  model: claude-sonnet-5-5          # LLM_MODEL
+  supervisor_effort: medium         # tool selection / conversation
+  worker_effort: low                # text2Cypher + synthesis calls
+  max_tokens: 16000
+  refusal_fallbacks: true           # server-side fallback on refusals (beta)
+
+neo4j:
+  uri: bolt://localhost:7687        # NEO4J_URI
+  user: neo4j                       # NEO4J_USER
+  password: contractor-demo         # NEO4J_PASSWORD
+
+qdrant:
+  url: ""                           # QDRANT_URL (e.g. http://localhost:6333); empty = embedded local mode
+  path: .qdrant                     # QDRANT_PATH (embedded mode storage)
+  collection: contractor_docs
+  dense_model: BAAI/bge-small-en-v1.5
+  sparse_model: Qdrant/bm25
+  top_k: 5
+
+# Every MCP server listed here is discovered at startup and its tools are given to the
+# agent automatically. Add servers or tools without touching agent code.
+mcp_servers:
+  contractor_ops:
+    transport: streamable_http
+    url: http://localhost:8000/mcp  # MCP_CONTRACTOR_OPS_URL
+
+agent:
+  # REQUIRE_APPROVAL: pause for a human OK (Agent Chat UI interrupt) before destructive MCP tools
+  require_approval_for_destructive: false

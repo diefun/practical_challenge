@@ -1,0 +1,5 @@
+contractor_id,project_id,role,start_date,end_date
+C002,P003,Project Manager,2026-10-15,2026-12-14
+C004,P001,Structural Lead,2026-09-01,2027-01-04
+C007,P005,BIM Lead,2026-08-01,2026-11-30
+C011,P001,Safety Manager,2026-09-01,2027-01-31

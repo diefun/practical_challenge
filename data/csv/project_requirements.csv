@@ -1,0 +1,13 @@
+project_id,skill,min_level,headcount
+P001,Electrical,4,2
+P001,Plumbing,3,1
+P001,Safety Inspection,3,1
+P002,Solar Installation,4,3
+P002,Electrical,4,2
+P002,Project Management,4,1
+P003,Carpentry,3,2
+P003,Drywall,3,1
+P004,HVAC,4,1
+P004,Structural Engineering,4,1
+P005,BIM Modeling,4,1
+P005,HVAC,3,1

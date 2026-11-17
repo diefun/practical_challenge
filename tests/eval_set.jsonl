@@ -1,0 +1,20 @@
+{"prompt": "Who is currently assigned to project Apollo?", "expect": "knowledge_research"}
+{"prompt": "Which contractors hold a valid OSHA 30 and are available next week?", "expect": "knowledge_research"}
+{"prompt": "What's the maximum hourly rate Bluepeak will pay for an electrician?", "expect": "knowledge_research"}
+{"prompt": "How much notice do we need to give Northwind before removing someone?", "expect": "knowledge_research"}
+{"prompt": "Whose certifications expire before the end of the year?", "expect": "knowledge_research"}
+{"prompt": "What skills does the Helios Solar Farm still need?", "expect": "knowledge_research"}
+{"prompt": "Is overtime allowed, and how is it billed?", "expect": "knowledge_research"}
+{"prompt": "Why is the Northwind Clinic Expansion on hold?", "expect": "knowledge_research"}
+{"prompt": "Could Chloe cover the plumbing work on Apollo?", "expect": "knowledge_research"}
+{"prompt": "What are the work hours for Summit store remodels?", "expect": "knowledge_research"}
+{"prompt": "Assign Ana Torres to Apollo as an electrician starting 2026-11-24.", "expect": "assign_contractor"}
+{"prompt": "Put Isabel Costa on the Summit Store Remodel as drywall finisher from Nov 20 2026.", "expect": "assign_contractor"}
+{"prompt": "Take Kara Nilsen off Apollo, she's moving to another client.", "expect": "unassign_contractor"}
+{"prompt": "Mark the Northwind Clinic Expansion as active, the zoning variance was approved.", "expect": "update_project_status"}
+{"prompt": "Set Helios Solar Farm to active.", "expect": "update_project_status"}
+{"prompt": "Open a critical work order on Apollo: a worker reported a shock near panel B2.", "expect": "create_work_order"}
+{"prompt": "Create a low priority work order for Summit to touch up paint in fitting room 3.", "expect": "create_work_order"}
+{"prompt": "Log 8 hours for Diego on Apollo for today.", "expect": "log_timesheet"}
+{"prompt": "Record 6.5 hours yesterday for Kara Nilsen on project Apollo.", "expect": "log_timesheet"}
+{"prompt": "Please cancel the Summit Store Remodel project, the client pulled out.", "expect": "update_project_status"}

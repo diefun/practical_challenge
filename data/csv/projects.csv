@@ -1,0 +1,6 @@
+id,name,client_id,status,start_date,end_date,location,budget_usd
+P001,Apollo,CL01,active,2026-09-01,2027-03-31,Austin,1200000
+P002,Helios Solar Farm,CL02,planning,2026-12-01,2027-08-31,Phoenix,3400000
+P003,Summit Store Remodel,CL03,active,2026-10-15,2027-01-15,Denver,450000
+P004,Northwind Clinic Expansion,CL01,on_hold,2027-01-10,2027-10-30,Denver,2100000
+P005,Bluepeak HQ Retrofit,CL02,active,2026-08-01,2027-02-28,Remote,800000

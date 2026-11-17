@@ -1,0 +1,27 @@
+contractor_id,skill,level
+C001,Electrical,5
+C001,Solar Installation,4
+C002,Project Management,5
+C002,Electrical,3
+C003,Plumbing,4
+C003,HVAC,3
+C004,Structural Engineering,5
+C004,Project Management,4
+C005,HVAC,5
+C005,Electrical,3
+C006,Carpentry,4
+C006,Drywall,4
+C007,Structural Engineering,4
+C007,BIM Modeling,5
+C008,BIM Modeling,4
+C008,Project Management,3
+C009,Plumbing,3
+C009,Drywall,3
+C010,Electrical,4
+C010,Solar Installation,5
+C011,Project Management,5
+C011,Safety Inspection,5
+C012,Carpentry,3
+C012,Concrete,4
+C006,Safety Inspection,3
+C001,Safety Inspection,2
