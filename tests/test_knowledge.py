@@ -25,6 +25,17 @@ def test_rag_retrieves_relevant_document(question, expected_source):
     assert expected_source in sources
 
 
+def test_multi_query_finds_documents_a_single_mixed_query_misses():
+    question = ("Which available contractors could fill the electrician roles on Apollo, "
+                "given Northwind's certification and rate rules?")
+    sub_queries = ["Northwind Health certification requirements for contractors",
+                   "Northwind Health maximum hourly rate", "Apollo electrician requirements"]
+    single = {h["source"] for h in rag.search(question)}
+    fused = {h["source"] for h in rag.search_many([question, *sub_queries])}
+    assert "msa_northwind_health.md" not in single  # the weakness this fixes
+    assert {"msa_northwind_health.md", "sow_apollo.md"} <= fused
+
+
 @needs_neo4j
 def test_kg_read_query():
     rows = kg.run_read_only(
@@ -50,5 +61,6 @@ async def test_knowledge_pipeline_combines_rag_and_kg():
         "question": "Which available contractors could fill the electrician roles on Apollo, "
                     "given Northwind's certification and rate rules?"})
     assert out["kg_result"]["rows"], out["kg_result"]
-    assert any(h["source"] == "msa_northwind_health.md" for h in out["rag_hits"])
+    sources = [h["source"] for h in out["rag_hits"]]
+    assert "msa_northwind_health.md" in sources, (out["rag_queries"], sources)
     assert "Ana Torres" in out["answer"]

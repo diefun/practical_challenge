@@ -9,7 +9,7 @@ Agent Chat UI / terminal ──► LangGraph server (agent/graph.py)
                                supervisor: agent ⇄ ToolNode   (only branch: tools_condition)
                                │
        informational route     ├─ knowledge_research  ── LangGraph subgraph (agent/knowledge/)
-                               │     START ─┬─► rag_retrieve  (Qdrant hybrid: dense + BM25)
+                               │     START ─┬─► rag_retrieve  (multi-query → Qdrant hybrid: dense + BM25, RRF)
                                │            └─► kg_query      (text→Cypher, read-only Neo4j)
                                │                   └──► synthesize (cited answer) ─► END
                                │
@@ -126,6 +126,22 @@ shows as accept / edit / ignore. The rule reads MCP metadata, not tool names.
 * **New MCP server:** add it under `mcp_servers:` in `config.yaml`.
 * **New knowledge:** drop markdown files (with front matter) in `data/docs/` and re-run
   `build_vectors`; add CSV rows / statements in `ingest/build_kg.py`.
+
+### Upgrading from Qdrant 1.12
+`docker-compose.yml` now uses Qdrant 1.20 to match the Python client. If you started the stack
+with the older image, recreate the Qdrant volume and re-index:
+```bash
+docker compose down
+```
+```bash
+docker volume rm practical_challenge_qdrant_data
+```
+```bash
+docker compose up -d
+```
+```bash
+python -m ingest.build_vectors
+```
 
 ## Tests
 ```bash

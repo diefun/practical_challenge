@@ -47,3 +47,18 @@ def search(question: str, top_k: int | None = None) -> list[dict]:
         with_payload=True,
     )
     return [{**p.payload, "score": round(p.score, 4)} for p in res.points]
+
+
+def search_many(queries: list[str], top_k: int | None = None, rrf_k: int = 60) -> list[dict]:
+    """Search several queries and fuse their rankings with Reciprocal Rank Fusion.
+
+    Chunks found by several queries, or ranked high by any one, come first."""
+    k = top_k or get_config()["qdrant"]["top_k"]
+    fused: dict[tuple, dict] = {}
+    for query in dict.fromkeys(queries):  # de-duplicate, keep order
+        for rank, hit in enumerate(search(query, top_k=k), 1):
+            key = (hit["source"], hit.get("section"), hit["text"])
+            entry = fused.setdefault(key, {**hit, "score": 0.0})
+            entry["score"] += 1 / (rrf_k + rank)
+    ranked = sorted(fused.values(), key=lambda h: h["score"], reverse=True)[:k]
+    return [{**h, "score": round(h["score"], 4)} for h in ranked]

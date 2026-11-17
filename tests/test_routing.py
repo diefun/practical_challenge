@@ -71,7 +71,7 @@ async def test_knowledge_tool_is_a_single_entry_point(monkeypatch):
     from agent.knowledge import subgraph
 
     seen = []
-    monkeypatch.setattr(subgraph.rag, "search", lambda q: seen.append("rag") or [{"text": "t", "source": "s"}])
+    monkeypatch.setattr(subgraph.rag, "search_many", lambda qs: seen.append("rag") or [{"text": "t", "source": "s"}])
     monkeypatch.setattr(subgraph.kg, "query_graph", lambda q: seen.append("kg") or {"cypher": "c", "rows": []})
     monkeypatch.setattr(subgraph, "make_llm", lambda *_: scripted(AIMessage("synthesized")))
     graph = build_graph([subgraph.knowledge_research], llm=scripted(

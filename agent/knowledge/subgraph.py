@@ -12,6 +12,7 @@ It has no access to the MCP server and only reads data.
 from __future__ import annotations
 
 import json
+import re
 from typing import TypedDict
 
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -25,16 +26,37 @@ from agent.llm import make_llm
 
 class KnowledgeState(TypedDict, total=False):
     question: str
+    rag_queries: list[str]
     rag_hits: list[dict]
     kg_result: dict
     answer: str
 
 
-def rag_retrieve(state: KnowledgeState) -> KnowledgeState:
+REWRITE_PROMPT = """Split the user's question into 1-3 short, self-contained search queries for a document
+search over contracts (MSAs), statements of work and company policies. Each query should cover ONE
+topic and name the client or project it concerns. Reply with one query per line and nothing else."""
+
+
+def rewrite_queries(question: str) -> list[str]:
+    """Multi-query retrieval: a question that mixes topics ("Apollo electricians, given Northwind's
+    certification and rate rules") is searched as several focused queries plus the original."""
     try:
-        return {"rag_hits": rag.search(state["question"])}
+        reply = make_llm(get_config()["llm"]["worker_effort"]).invoke(
+            [SystemMessage(REWRITE_PROMPT), HumanMessage(question)])
+        subs = [re.sub(r"^\s*(?:[-*•]|\d+[.)])\s*", "", q).strip() for q in reply.text.splitlines()]
+        subs = [q for q in subs if len(q) > 3][:3]
+    except Exception:
+        subs = []  # retrieval must never fail because of the rewrite step
+    return [question, *subs]
+
+
+def rag_retrieve(state: KnowledgeState) -> KnowledgeState:
+    queries = rewrite_queries(state["question"])
+    try:
+        return {"rag_queries": queries, "rag_hits": rag.search_many(queries)}
     except Exception as exc:
-        return {"rag_hits": [{"text": f"(document search unavailable: {exc})", "source": "error"}]}
+        return {"rag_queries": queries,
+                "rag_hits": [{"text": f"(document search unavailable: {exc})", "source": "error"}]}
 
 
 def kg_query(state: KnowledgeState) -> KnowledgeState:
